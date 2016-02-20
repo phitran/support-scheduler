@@ -5,6 +5,7 @@ const Vision = require('vision');
 const config = require('./config');
 
 const server = new Hapi.Server(config.get('/server'));
+const routes = require('./routes');
 server.connection(config.get('/connections'));
 
 server.register([Vision], (err) => {
@@ -12,16 +13,8 @@ server.register([Vision], (err) => {
         throw err;
     }
 
-    // Add the route
-    server.route({
-        method: 'GET',
-        path: '/',
-        handler: function (request, reply) {
-            return reply('yay');
-        }
-    });
+    server.route(routes);
 
-    // Start the server
     server.start(err => {
         console.log('Server running at:', server.info.uri);
     });
