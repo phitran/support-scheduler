@@ -1,0 +1,18 @@
+lib-cov
+lcov.info
+*.seed
+*.log
+*.csv
+*.dat
+*.out
+*.pid
+*.gz
+
+node_modules
+.idea/*
+!.idea/codeStyleSettings.xml
+.DS_Store
+/.sass-cache/
+
+# PLEASE DO NOT IGNORE OTHER FILES IN /dist/
+/dist/*
