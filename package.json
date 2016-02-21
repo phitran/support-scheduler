@@ -8,6 +8,7 @@
     "confidence": "^1.4.2",
     "ejs": "^2.4.1",
     "hapi": "^13.0.0",
+    "inert": "^3.2.0",
     "joi": "^8.0.2",
     "lodash": "^4.5.0",
     "moment": "^2.11.2",
@@ -15,7 +16,11 @@
     "vision": "^4.0.1"
   },
   "devDependencies": {
+    "brfs": "^1.4.3",
     "gulp": "^3.9.1",
+    "gulp-browserify": "^0.5.1",
+    "gulp-clean": "^0.3.1",
+    "gulp-rename": "^1.2.2",
     "gulp-shell": "^0.5.2"
   },
   "scripts": {
