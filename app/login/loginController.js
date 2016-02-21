@@ -15,7 +15,7 @@ function loginController($state, loginService) {
 
     function login( credentials ) {
         loginService.login(credentials.username, credentials.password).then( response => {
-            console.log(response);
+            $state.go('schedule', {userContext: response.data});
         }, err => {
             console.log(err);
         });

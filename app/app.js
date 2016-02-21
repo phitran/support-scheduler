@@ -22,6 +22,23 @@ function config($locationProvider, $stateProvider, $urlRouterProvider) {
             template: fs.readFileSync(__dirname + '/login/login.html', 'utf8'),
             controller: 'loginController',
             controllerAs: 'loginCtrl'
+        })
+        .state('schedule', {
+            url: '/schedule',
+            template: fs.readFileSync(__dirname + '/schedule/schedule.html', 'utf8'),
+            controller: 'scheduleController',
+            controllerAs: 'scheduleCtrl',
+            params: {userContext: null},
+            resolve: {
+                userContext: ['$stateParams', ($stateParams) => {
+                    return $stateParams.userContext;
+                }]
+            },
+            onEnter: ['$state', 'userContext', ($state, userContext) => {
+                if (!userContext) {
+                    $state.go('login');
+                }
+            }]
         });
 }
 
@@ -30,5 +47,6 @@ function run() {
 }
 
 require('./login');
+require('./schedule');
 
 module.exports = appModule;

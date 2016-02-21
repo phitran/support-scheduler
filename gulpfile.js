@@ -27,4 +27,6 @@ gulp.task('js', ['clean'], function () {
         .pipe(gulp.dest('./dist/js'))
 });
 
-gulp.task( 'default', [ 'clean', 'js' ] );
+gulp.watch(['app/**/*.js', 'app/**/*.html'], ['default']);
+
+gulp.task('default', ['clean', 'js']);
