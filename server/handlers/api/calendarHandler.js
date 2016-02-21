@@ -3,7 +3,7 @@
 const Boom = require('boom');
 const apiHelper = require('./apiHelper');
 
-function getCalendar(request, reply) {
+function getCalendarHandler(request, reply) {
     const options = {
         date: {
             $gte: new Date(request.url.query.startDate),
@@ -19,5 +19,5 @@ function getCalendar(request, reply) {
 }
 
 module.exports = {
-    getCalendar: getCalendar
+    getCalendarHandler: getCalendarHandler
 };

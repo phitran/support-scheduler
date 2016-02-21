@@ -6,7 +6,7 @@ const mongo = require('mongodb');
 const _get = require('lodash/get');
 const _random = require('lodash/random');
 
-function getSchedule(request, reply) {
+function getScheduleHandler(request, reply) {
     const userId = _get(request.params, 'userId');
     const getScheduleMatcher = [
         {
@@ -31,7 +31,7 @@ function getSchedule(request, reply) {
     });
 }
 
-function swapSchedule(request, reply) {
+function swapScheduleHandler(request, reply) {
     const origin = request.payload.originSchedule;
     const target = request.payload.targetSchedule;
 
@@ -50,7 +50,7 @@ function swapSchedule(request, reply) {
     });
 }
 
-function cancelSchedule(request, reply) {
+function cancelScheduleHandler(request, reply) {
     /**
      * get current Schedule (month, year)
      * get all schedules in month
@@ -149,7 +149,7 @@ function cancelSchedule(request, reply) {
 }
 
 module.exports = {
-    getSchedule: getSchedule,
-    swapSchedule: swapSchedule,
-    cancelSchedule: cancelSchedule
+    getScheduleHandler: getScheduleHandler,
+    swapScheduleHandler: swapScheduleHandler,
+    cancelScheduleHandler: cancelScheduleHandler
 };

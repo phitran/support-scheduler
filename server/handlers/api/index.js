@@ -1,11 +1,11 @@
-const userApiHandlers = require('./user');
-const calendarApiHandlers = require('./calendar');
-const scheduleApiHandlers = require('./schedule');
+const userApiHandlers = require('./userHandler');
+const calendarApiHandlers = require('./calendarHandler');
+const scheduleApiHandlers = require('./scheduleHandler');
 
 module.exports = {
-    getUser: userApiHandlers.getUser,
-    getCalendar: calendarApiHandlers.getCalendar,
-    getSchedule: scheduleApiHandlers.getSchedule,
-    swapSchedule: scheduleApiHandlers.swapSchedule,
-    cancelSchedule: scheduleApiHandlers.cancelSchedule
+    getUserHandler: userApiHandlers.getUserHandler,
+    getCalendarHandler: calendarApiHandlers.getCalendarHandler,
+    getScheduleHandler: scheduleApiHandlers.getScheduleHandler,
+    swapScheduleHandler: scheduleApiHandlers.swapScheduleHandler,
+    cancelScheduleHandler: scheduleApiHandlers.cancelScheduleHandler
 };

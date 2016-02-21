@@ -5,7 +5,7 @@ const apiHelper = require('./apiHelper');
 const mongo = require('mongodb');
 const _get = require('lodash/get');
 
-function getUser(request, reply) {
+function getUserHandler(request, reply) {
     const userId = _get(request.params, 'userId');
     const options = userId ? {"_id": new mongo.ObjectID(userId)} : {};
 
@@ -18,5 +18,5 @@ function getUser(request, reply) {
 }
 
 module.exports = {
-    getUser: getUser
+    getUserHandler: getUserHandler
 };

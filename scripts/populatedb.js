@@ -26,6 +26,7 @@
  */
 
 const moment = require('moment');
+const _uniq = require('lodash/uniq');
 const MongoClient = require('mongodb').MongoClient;
 const url = 'mongodb://localhost:27017/support-schedule';
 
@@ -114,8 +115,8 @@ MongoClient.connect(url, function (err, db) {
             "Sherry", "Jack", "Sherry", "Jack"];
         let allUsers = [];
 
-        users.forEach((value, index) => {
-            let currentUser = {name: value, username: value, password: 'test'};
+        _uniq(users).forEach((value, index) => {
+            let currentUser = {name: value, username: value.toLowerCase(), password: 'test'};
 
             allUsers.push(currentUser);
         });

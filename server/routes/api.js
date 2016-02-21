@@ -16,7 +16,7 @@ module.exports = [
                 }
             }
         },
-        handler: api.getUser
+        handler: api.getUserHandler
     },
     {
         method: 'GET',
@@ -29,7 +29,7 @@ module.exports = [
                 }
             }
         },
-        handler: api.getCalendar
+        handler: api.getCalendarHandler
     },
     {
         method: 'GET',
@@ -44,7 +44,7 @@ module.exports = [
                 }
             }
         },
-        handler: api.getSchedule
+        handler: api.getScheduleHandler
     },
     {
         method: 'POST',
@@ -66,7 +66,7 @@ module.exports = [
                 }
             }
         },
-        handler: api.swapSchedule
+        handler: api.swapScheduleHandler
     },
     {
         method: 'POST',
@@ -83,6 +83,6 @@ module.exports = [
                 }
             }
         },
-        handler: api.cancelSchedule
+        handler: api.cancelScheduleHandler
     }
 ];
