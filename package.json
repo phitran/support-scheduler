@@ -4,15 +4,19 @@
   "description": "",
   "main": "server/index.js",
   "dependencies": {
+    "boom": "^3.1.2",
     "confidence": "^1.4.2",
     "ejs": "^2.4.1",
     "hapi": "^13.0.0",
+    "joi": "^8.0.2",
+    "lodash": "^4.5.0",
     "moment": "^2.11.2",
     "mongodb": "^2.1.7",
     "vision": "^4.0.1"
   },
   "devDependencies": {
-    "gulp": "^3.9.1"
+    "gulp": "^3.9.1",
+    "gulp-shell": "^0.5.2"
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
