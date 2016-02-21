@@ -17,6 +17,7 @@
     "vision": "^4.0.1"
   },
   "devDependencies": {
+    "babelify": "^7.2.0",
     "brfs": "^1.4.3",
     "gulp": "^3.9.1",
     "gulp-browserify": "^0.5.1",

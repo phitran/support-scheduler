@@ -1,3 +1,14 @@
-<p>
-    login
-</p>
+<div>
+    <form name="login" novalidate>
+        <div>
+            <lable>Username:</lable>
+            <input type="username" ng-model="user.username" name="username" required placeholder="username"/>
+        </div>
+
+        <div>
+            <lable>Password:</lable>
+            <input type="password" ng-model="user.password" name="password" required placeholder="password"/>
+        </div>
+        <button type="submit" ng-click="loginCtrl.login(user);">Login</button>
+    </form>
+</div>

@@ -4,11 +4,22 @@ angular
     .module('SupportScheduler')
     .controller('loginController', loginController);
 
-loginController.$inject = [];
-function loginController() {
+loginController.$inject = ['$state', 'loginService'];
+function loginController($state, loginService) {
     var vm = this;
 
-    console.log('yay');
+    /* public method */
+    vm.login = login;
+
+    /* public members */
+
+    function login( credentials ) {
+        loginService.login(credentials.username, credentials.password).then( response => {
+            console.log(response);
+        }, err => {
+            console.log(err);
+        });
+    }
 }
 
 module.exports = loginController;

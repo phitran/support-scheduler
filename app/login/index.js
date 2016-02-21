@@ -1,4 +1,5 @@
 'use strict';
 
 // Components
-require( './loginController' );
+require('./loginController');
+require('./loginService');

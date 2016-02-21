@@ -20,7 +20,7 @@ gulp.task('clean', function () {
 gulp.task('js', ['clean'], function () {
     gulp.src('app/app.js')
         .pipe(browserify({
-            transform: ['brfs'],
+            transform: ['brfs', 'babelify'],
             debug: isProduction ? false : true
         }))
         .pipe(rename('support-scheduler.js'))
