@@ -15,6 +15,8 @@ server.register([Vision], (err) => {
 
     server.route(routes);
 
+    server.views(config.get('/views'));
+
     server.start(err => {
         console.log('Server running at:', server.info.uri);
     });
