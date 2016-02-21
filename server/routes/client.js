@@ -2,6 +2,6 @@ const clientHandler = require('../handlers/clientHandler');
 
 module.exports = [{
     method: ['GET'],
-    path: '/',
+    path: '/{p*}',
     handler: clientHandler
 }];
