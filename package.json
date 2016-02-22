@@ -8,6 +8,13 @@
     "postinstall": "gulp --production",
     "test": "./node_modules/karma/bin/karma start karma.conf.js"
   },
+  "engines": {
+    "node": "4.2.6"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/phitran/support-scheduler.git"
+  },
   "dependencies": {
     "boom": "^3.1.2",
     "confidence": "^1.4.2",
@@ -28,6 +35,7 @@
     "babelify": "^7.2.0",
     "brfs": "^1.4.3",
     "browserify": "^13.0.0",
+    "grulp": "^1.0.0",
     "gulp": "^3.9.1",
     "gulp-autoprefixer": "^3.1.0",
     "gulp-browserify": "^0.5.1",
