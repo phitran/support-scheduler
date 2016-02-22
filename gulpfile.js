@@ -44,7 +44,4 @@ gulp.task('css', ['clean'], function () {
         .pipe(gulp.dest('./dist/css'));
 });
 
-
-gulp.watch(['app/**/*.js', 'app/**/*.html', 'app/css/*.scss'], ['default']);
-
 gulp.task('default', ['clean', 'js', 'css']);

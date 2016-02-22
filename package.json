@@ -5,6 +5,7 @@
   "main": "server/index.js",
   "scripts": {
     "start": "node ./server/index.js",
+    "postinstall": "gulp --production",
     "test": "./node_modules/karma/bin/karma start karma.conf.js"
   },
   "dependencies": {

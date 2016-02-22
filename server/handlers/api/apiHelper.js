@@ -2,7 +2,7 @@
 
 const Boom = require('boom');
 const mongoClient = require('mongodb').MongoClient;
-const url = 'mongodb://localhost:27017/support-schedule';
+const url = process.env.mongodb_url || 'mongodb://localhost:27017/support-schedule';
 
 function queryCollection(collection, options) {
     return new Promise((resolve, reject) => {
