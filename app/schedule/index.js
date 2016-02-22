@@ -2,3 +2,4 @@
 
 // Components
 require('./scheduleController');
+require('./scheduleService');

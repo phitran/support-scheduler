@@ -77,10 +77,9 @@ MongoClient.connect(url, function (err, db) {
         const yearFirst = new moment([2016, 0]).startOf('month').hour(0).minute(0).seconds(0).milliseconds(0);
         const yearLast = new moment([2016, 11]).endOf('month').hour(0).minute(0).seconds(0).milliseconds(0);
         const currentMoment = yearFirst.clone();
-        let stop = false;
         let dates = [];
 
-        while (stop === false) {
+        for (var i = 0; !currentMoment.isSame(yearLast); i++) {
             currentMoment.add(1, 'd');
 
             let isHoliday = getHoliday(currentMoment);
@@ -89,13 +88,12 @@ MongoClient.connect(url, function (err, db) {
                 month: parseInt(currentMoment.format('M')),
                 day: parseInt(currentMoment.format('D')),
                 year: parseInt(currentMoment.format('YYYY')),
-                isWeekend: currentMoment.day() === (0 || 6),
+                isWeekend: (currentMoment.day() === 0 || currentMoment.day() === 6),
                 isHoliday: !!isHoliday,
                 description: isHoliday ? isHoliday : ''
             };
 
             dates.push(currentDate);
-            stop = currentMoment.isSame(yearLast);
         }
 
         return collection.insertMany(dates);
@@ -137,17 +135,15 @@ MongoClient.connect(url, function (err, db) {
         let userIndex = 0;
 
         days.forEach((value, index) => {
-            if (!value.isWeekend && !value.isHoliday) {
-                userIndex++;
-                userIndex = userIndex <= users.length ? userIndex : 1;
+            userIndex++;
+            userIndex = userIndex <= users.length ? userIndex : 1;
 
-                var currentSchedule = {
-                    userId: users[userIndex - 1]._id,
-                    calendarId: value._id
-                };
+            var currentSchedule = {
+                userId: (value.isWeekend || value.isHoliday) ? null : users[userIndex - 1]._id,
+                calendarId: value._id
+            };
 
-                allSchedule.push(currentSchedule);
-            }
+            allSchedule.push(currentSchedule);
         });
 
         db.collection("schedule", null, (err, collection) => {

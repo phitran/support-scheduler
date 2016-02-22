@@ -7,37 +7,12 @@ const api = require('../handlers/api');
 module.exports = [
     {
         method: 'GET',
-        path: '/services/user/{userId*}',
-        config: {
-            validate: {
-                query: {}, //disallow any query params
-                params: {
-                    userId: mongoIdValidation
-                }
-            }
-        },
-        handler: api.getUserHandler
-    },
-    {
-        method: 'GET',
-        path: '/services/calendar',
+        path: '/services/schedule/{userId*}',
         config: {
             validate: {
                 query: {
                     startDate: Joi.date().iso().required(),
                     endDate: Joi.date().iso().required()
-                }
-            }
-        },
-        handler: api.getCalendarHandler
-    },
-    {
-        method: 'GET',
-        path: '/services/schedule/{userId*}',
-        config: {
-            validate: {
-                query: {
-                    month: Joi.number().integer().required()
                 },
                 params: {
                     userId: mongoIdValidation
@@ -57,12 +32,12 @@ module.exports = [
                         _id: mongoIdValidation,
                         userId: mongoIdValidation,
                         calendarId: mongoIdValidation
-                    }),
+                    }).unknown(),
                     targetSchedule: Joi.object().keys({
                         _id: mongoIdValidation,
                         userId: mongoIdValidation,
                         calendarId: mongoIdValidation
-                    })
+                    }).unknown()
                 }
             }
         },
@@ -74,15 +49,15 @@ module.exports = [
         config: {
             validate: {
                 query: {},
-                params: {
-                    schedule: {
+                payload: {
+                    schedule: Joi.object().keys({
                         _id: mongoIdValidation,
                         userId: mongoIdValidation,
                         calendarId: mongoIdValidation
-                    }
+                    }).unknown()
                 }
             }
         },
-        handler: api.cancelScheduleHandler
+        handler: api.undoableScheduleHandler
     }
 ];

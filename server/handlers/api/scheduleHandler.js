@@ -6,12 +6,18 @@ const mongo = require('mongodb');
 const _get = require('lodash/get');
 const _random = require('lodash/random');
 
+/**
+ * query schedule through a start and end range.
+ * optional userId
+ * @param request
+ * @param reply
+ */
 function getScheduleHandler(request, reply) {
     const userId = _get(request.params, 'userId');
     const getScheduleMatcher = [
         {
             $match: {
-                "day.month": request.query.month
+                "date.date": {$gte: new Date(request.query.startDate), $lte: new Date(request.query.endDate)}
             }
         }
     ];
@@ -31,6 +37,12 @@ function getScheduleHandler(request, reply) {
     });
 }
 
+/**
+ * swap userIds on the schedule record
+ * from the request
+ * @param request
+ * @param reply
+ */
 function swapScheduleHandler(request, reply) {
     const origin = request.payload.originSchedule;
     const target = request.payload.targetSchedule;
@@ -50,98 +62,60 @@ function swapScheduleHandler(request, reply) {
     });
 }
 
-function cancelScheduleHandler(request, reply) {
-    /**
-     * get current Schedule (month, year)
-     * get all schedules in month
-     * get all users not scheduled in current Month
-     * pick random
-     */
-    const idMatcher = [
-        {
-            $match: {
-                "_id": new mongo.ObjectID(request.payload.schedule._id)
-            }
-        }
-    ];
-    let requestedSchedule = null;
+/**
+ * Search the next months schedules
+ * and pick a random schedule to swap
+ * @param request
+ * @param reply
+ */
+function undoableScheduleHandler(request, reply) {
+    const requestedSchedule = request.payload.schedule;
 
-    //get current schedule from request
-    apiHelper.aggregateScheduleCollection(idMatcher)
-        .then(currentSchedule => {
-            requestedSchedule = currentSchedule[0];
-            const montYearMatcher = [
+    //get calendar info from passed in schedule
+    apiHelper.queryCollection('calendar', {_id: new mongo.ObjectID(requestedSchedule.calendarId)})
+        .then(calendarRecord => {
+            return calendarRecord;
+        })
+        .then(calendarRecord => {
+            const undoableMatcher = [
                 {
                     $match: {
-                        "day.month": requestedSchedule.day.month
+                        "date.month": calendarRecord[0].month === 12 ? 1 : calendarRecord[0].month + 1
                     }
                 },
                 {
                     $match: {
-                        "day.year": requestedSchedule.day.year
+                        "date.year": calendarRecord[0].month === 12 ? calendarRecord[0].year + 1 : calendarRecord[0].year
+                    }
+                },
+                {
+                    $match: {
+                        $and: [
+                            {"userId": {$ne: new mongo.ObjectID(requestedSchedule.userId)}},
+                            {"userId": {$ne: null}}
+                        ]
                     }
                 }
             ];
 
-            //get schedule for current month/year
-            return apiHelper.aggregateScheduleCollection(montYearMatcher);
+            return apiHelper.aggregateScheduleCollection(undoableMatcher);
         })
-        .then(currentMonthSchedules => {
-            //create array of UserIds
-            const currentMonthUserIds = [];
-            currentMonthSchedules.forEach((value, index) => {
-                currentMonthUserIds.push(value.user._id)
-            });
-
-            //get all users not schedule for current month
-            return apiHelper.queryCollection('users', {_id: {$nin: currentMonthUserIds}});
-        })
-        .then(poolOfUser => {
-            //create array of UserIds
-            const poolOfUserId = [];
-            poolOfUser.forEach((value, index) => {
-                poolOfUserId.push(value._id);
-            });
-
-            const poolOfUserSchedulesMatcher = [
-                {
-                    $match: {
-                        userId: {
-                            $in: poolOfUserId
-                        }
-                    }
-                },
-                {
-                    $match: {
-                        "day.month": requestedSchedule.day.month === 12 ? 1 : requestedSchedule.day.month + 1
-                    }
-                },
-                {
-                    $match: {
-                        "day.year": requestedSchedule.day.month === 12 ? requestedSchedule.day.year + 1 : requestedSchedule.day.year
-                    }
-                }
-            ];
-
-            //get next months schedule for pool of users
-            return apiHelper.aggregateScheduleCollection(poolOfUserSchedulesMatcher);
-        })
-        .then(poolOfUserSchedules => {
-            //pick random user from pool and swap times
-            const randomUser = _random(0, poolOfUserSchedules.length);
+        .then(schedules => {
+            const randomSchedule = schedules[_random(0, schedules.length)];
             const promises = [
-                apiHelper.updateDocument('schedule', {_id: requestedSchedule._id}, {$set: {userId: poolOfUserSchedules[randomUser].userId}}),
-                apiHelper.updateDocument('schedule', {_id: poolOfUserSchedules[randomUser]._id}, {$set: {userId: requestedSchedule.userId}})
+                apiHelper.updateDocument('schedule', {_id: randomSchedule._id}, {$set: {userId: new mongo.ObjectID(requestedSchedule.userId)}}),
+                apiHelper.updateDocument('schedule', {_id: new mongo.ObjectID(requestedSchedule._id)}, {$set: {userId: randomSchedule.userId}})
             ];
 
-            Promise.all(promises).then(values => {
-                var response = {
-                    originalSchedule: values[0],
-                    newSchedule: values[1]
-                };
+            return Promise.all(promises);
+        })
+        .then(updatedSchedules => {
+            var response = {
+                originalSchedule: updatedSchedules[0],
+                newSchedule: updatedSchedules[1]
+            };
 
-                reply(response).code(200);
-            });
+            reply(response).code(200);
         })
         .catch(err => {
             reply(Boom.badRequest(err));
@@ -151,5 +125,5 @@ function cancelScheduleHandler(request, reply) {
 module.exports = {
     getScheduleHandler: getScheduleHandler,
     swapScheduleHandler: swapScheduleHandler,
-    cancelScheduleHandler: cancelScheduleHandler
+    undoableScheduleHandler: undoableScheduleHandler
 };

@@ -41,11 +41,6 @@ month is required
         isWeekend: false,
         isHoliday: false,
         description: '' },
-     suppertHero: 
-      { _id: 56c8d4e1446df3ba438e45a9,
-        name: 'Kevin',
-        username: 'Kevin',
-        password: 'test' },
      user: 
       { _id: 56c8d4e1446df3ba438e45a9,
         name: 'Kevin',

@@ -1,3 +1,43 @@
-<div>
-    schedule
-</div>
+<section>
+    <div class="header">
+        <i class="fa fa-angle-left" ng-click="previous()"></i>
+        <span>Feb, 2016 - {{  }}</span>
+        <i class="fa fa-angle-right" ng-click="next()"></i>
+    </div>
+    <div class="calendar">
+        <div class="calendar-label">Sunday</div>
+        <div class="calendar-label">Monday</div>
+        <div class="calendar-label">Tuesday</div>
+        <div class="calendar-label">Wednesday</div>
+        <div class="calendar-label">Thursday</div>
+        <div class="calendar-label">Friday</div>
+        <div class="calendar-label">Saturday</div>
+
+
+        <div class="day"
+             ng-repeat="currentDay in scheduleCtrl.days track by $index"
+             ng-class="{'isSupportHero': scheduleCtrl.isSupportHero(currentDay), 'isToday': scheduleCtrl.isToday(currentDay), 'notCurrentMonth': !scheduleCtrl.isCurrentMonth(currentDay) }">
+            <section>
+                <button ng-click="scheduleCtrl.swapSchedules(currentDay)"
+                        ng-show="scheduleCtrl.isSupportHero(currentDay) && !scheduleCtrl.isSwapping && !scheduleCtrl.isThePast(currentDay)">
+                    Swap
+                </button>
+                <button ng-click="scheduleCtrl.resetSwapContext(currentDay)"
+                        ng-show="scheduleCtrl.isSupportHero(currentDay) && scheduleCtrl.isSwapping && scheduleCtrl.swapContext.origin._id === currentDay._id">
+                    Cancel
+                </button>
+                <button ng-click="scheduleCtrl.confirmSwapSchedule(currentDay)"
+                        ng-show="!scheduleCtrl.isSupportHero(currentDay) && scheduleCtrl.isSwapping && scheduleCtrl.isWorkday(currentDay) && !scheduleCtrl.isThePast(currentDay) && scheduleCtrl.isCurrentMonth(currentDay)">
+                    Confirm
+                </button>
+                <button ng-click="scheduleCtrl.markUndoable(currentDay)"
+                        ng-show="scheduleCtrl.isSupportHero(currentDay) && !scheduleCtrl.isSwapping && !scheduleCtrl.isThePast(currentDay)">
+                    Undoable
+                </button>
+            </section>
+            <p>{{ currentDay.date.day }}</p>
+            <p>{{ currentDay.user[0].name }}</p>
+            <p>{{ currentDay.date.description}}</p>
+        </div>
+    </div>
+</section>

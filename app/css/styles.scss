@@ -1,0 +1,37 @@
+@import "type";
+
+.calendar {
+  display: flex;
+  flex-wrap: wrap;
+  min-width: 450px;
+}
+
+.calendar div {
+  display: flex;
+  flex-grow: 1;
+  border: 1px solid red;
+  height: 100px;
+  width: calc(100% * (1 / 7) - 10px)
+}
+
+.calendar-label {
+  justify-content: center;
+  align-items: center;
+}
+
+.day {
+  justify-content: flex-end;
+}
+
+.isSupportHero {
+  background-color: lightgray;
+}
+
+.isToday {
+  background-color: mediumpurple;
+}
+
+.notCurrentMonth {
+  opacity: 0.4;
+  background: lightgrey;
+}

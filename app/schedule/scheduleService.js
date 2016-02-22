@@ -1,12 +1,20 @@
 angular
     .module('SupportScheduler')
-    .service('loginService', loginService);
+    .service('scheduleService', scheduleService);
 
-loginService.$inject = ['$http'];
-function loginService($http) {
-    this.login = function (username, password) {
-        return $http.post('/auth/login', {username: username, password: password});
-    }
+scheduleService.$inject = ['$http'];
+function scheduleService($http) {
+    this.getSchedule = function (startDate, endDate) {
+        return $http.get('/services/schedule?startDate=' + startDate + '&endDate=' + endDate);
+    };
+
+    this.swapSchedule = function (originSchedule, targetSchedule) {
+        return $http.post('/services/schedule/swap', {originSchedule: originSchedule, targetSchedule: targetSchedule});
+    };
+
+    this.undoableSchedule = function (schedule) {
+        return $http.post('/services/schedule/undoable', {schedule: schedule});
+    };
 }
 
-module.exports = loginService;
+module.exports = scheduleService;

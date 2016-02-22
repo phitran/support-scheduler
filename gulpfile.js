@@ -1,5 +1,7 @@
 const gulp = require('gulp');
 const shell = require('gulp-shell');
+const sass = require('gulp-sass');
+const autoprefixer = require('gulp-autoprefixer');
 const browserify = require('gulp-browserify');
 const brfs = require('brfs');
 const rename = require('gulp-rename');
@@ -27,6 +29,17 @@ gulp.task('js', ['clean'], function () {
         .pipe(gulp.dest('./dist/js'))
 });
 
-gulp.watch(['app/**/*.js', 'app/**/*.html'], ['default']);
+gulp.task('css', ['clean'], function () {
+    return gulp.src('app/css/**/*.scss')
+        .pipe(sass().on('error', sass.logError))
+        .pipe(autoprefixer({
+            browsers: ['last 2 versions'],
+            cascade: false
+        }))
+        .pipe(gulp.dest('./dist/css'));
+});
 
-gulp.task('default', ['clean', 'js']);
+
+gulp.watch(['app/**/*.js', 'app/**/*.html', 'app/css/*.scss'], ['default']);
+
+gulp.task('default', ['clean', 'js', 'css']);

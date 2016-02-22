@@ -55,11 +55,11 @@ function aggregateScheduleCollection(matchers) {
                 from: 'calendar',
                 localField: 'calendarId',
                 foreignField: '_id',
-                as: 'day'
+                as: 'date'
             }
         },
         {
-            $unwind: '$day'
+            $unwind: '$date'
         },
         {
             $lookup: {
@@ -68,9 +68,6 @@ function aggregateScheduleCollection(matchers) {
                 foreignField: '_id',
                 as: 'user'
             }
-        },
-        {
-            $unwind: '$user'
         }
     ];
 
@@ -87,6 +84,13 @@ function aggregateScheduleCollection(matchers) {
                 if (err) {
                     reject(Boom.badRequest(err))
                 }
+
+                //remove password
+                result.forEach((value, index) => {
+                    if (value.user.length > 0) {
+                        delete value.user[0]['password'];
+                    }
+                });
 
                 db.close();
                 resolve(result);

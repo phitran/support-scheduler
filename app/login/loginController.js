@@ -13,8 +13,10 @@ function loginController($state, loginService) {
 
     /* public members */
 
-    function login( credentials ) {
-        loginService.login(credentials.username, credentials.password).then( response => {
+    login({username: 'matte', password: 'test'});
+
+    function login(credentials) {
+        loginService.login(credentials.username, credentials.password).then(response => {
             $state.go('schedule', {userContext: response.data});
         }, err => {
             console.log(err);
