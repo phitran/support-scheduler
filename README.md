@@ -1,5 +1,7 @@
-Support Scheduler
+Support Schedule
 =====
+
+[![Build Status](https://travis-ci.org/phitran/support-scheduler.svg?branch=master)](https://travis-ci.org/phitran/support-scheduler)
 
 ## Getting started
 brew install mongodb
