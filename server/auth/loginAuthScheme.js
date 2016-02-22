@@ -10,7 +10,7 @@ function loginAuthScheme(server, options) {
             return reply.continue({credentials: {}});
         },
         payload: function (request, reply) {
-            apiHelper.queryCollection('users', {username: request.payload.username}).then(user => {
+            apiHelper.queryCollection('users', {username: request.payload.username.toLowerCase()}).then(user => {
                 const currentUser = user[0];
 
                 if (currentUser.length === 0) {
