@@ -90,6 +90,12 @@ This will launch the Karma test runner with the `karma.conf.js` file. By default
 
 Running with PhantomJS isn't required, but recommended for speed in development cycle.
 
+## Future Plans/To-dos
+* Make username field unique on Mongodb
+* salt/hash passwords on Mongodb. add Server decoder
+* Server unit tests
+* Create test fixtures instead of inline
+
 ## API
 
 #### Schedule Object Example
