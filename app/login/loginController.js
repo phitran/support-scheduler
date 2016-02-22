@@ -4,20 +4,25 @@ angular
     .module('SupportScheduler')
     .controller('loginController', loginController);
 
-loginController.$inject = ['$state', 'loginService'];
-function loginController($state, loginService) {
+loginController.$inject = ['$state', '$timeout', 'loginService'];
+function loginController($state, $timeout, loginService) {
     var vm = this;
 
     /* public method */
     vm.login = login;
 
     /* public members */
+    vm.loginFailed = false;
 
     function login(credentials) {
         loginService.login(credentials.username, credentials.password).then(function(response) {
             $state.go('schedule', {userContext: response.data});
         }, function(err) {
-            console.log(err);
+            vm.loginFailed = true;
+
+            $timeout(function() {
+                vm.loginFailed = false;
+            }, 1300);
         });
     }
 }

@@ -1,14 +1,18 @@
-<div>
+<div class="df jc-center ai-center wd-full ht-full">
     <form name="login" novalidate>
-        <div>
+        <div class="df jc-space-between">
             <lable>Username:</lable>
             <input type="username" ng-model="user.username" name="username" required placeholder="username"/>
         </div>
 
-        <div>
+        <div class="df jc-space-between">
             <lable>Password:</lable>
             <input type="password" ng-model="user.password" name="password" required placeholder="password"/>
         </div>
-        <button type="submit" ng-click="loginCtrl.login(user);">Login</button>
+
+        <div class="df fd-column">
+            <span ng-show="loginCtrl.loginFailed" class="text-red">Invalid username or password</span>
+            <button ng-disabled="login.$error.required.length > 0" class="wd-full" style="margin-top: 10px;" type="submit" ng-click="loginCtrl.login(user);">Login</button>
+        </div>
     </form>
 </div>

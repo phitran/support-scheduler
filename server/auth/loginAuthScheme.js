@@ -11,9 +11,9 @@ function loginAuthScheme(server, options) {
         },
         payload: function (request, reply) {
             apiHelper.queryCollection('users', {username: request.payload.username}).then(user => {
-                const currentUser = user[0];
+                const currentUser = user[0];;
 
-                if (currentUser.length === 0) {
+                if (!currentUser) {
                     return reply(Boom.unauthorized('invalid user or passowrd'));
                 }
 
