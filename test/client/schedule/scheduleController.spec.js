@@ -48,6 +48,7 @@ describe(scheduleController.name, function () {
         serviceDeferred = $q.defer();
 
         scheduleService.getSchedule = jasmine.createSpy().and.returnValue(serviceDeferred.promise);
+        scheduleService.getUserSchedule = jasmine.createSpy().and.returnValue(serviceDeferred.promise);
         scheduleService.swapSchedule = jasmine.createSpy().and.returnValue(serviceDeferred.promise);
 
         controller = new scheduleController(userContext, scheduleService);
@@ -62,6 +63,7 @@ describe(scheduleController.name, function () {
 
             expect(controller.days).toEqual([]);
             expect(controller.today).toEqual(moment().hour(0).minute(0).seconds(0).milliseconds(0));
+            expect(controller.personalSchedule).toEqual([]);
         });
     });
 

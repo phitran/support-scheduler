@@ -10,6 +10,7 @@ describe(loginController.name, function () {
     var controller,
         scope,
         serviceDeferred,
+        timeout,
         state = {
             go: function () {
             }
@@ -21,13 +22,14 @@ describe(loginController.name, function () {
 
     beforeEach(angular.mock.module(app.name));
 
-    beforeEach(inject(function ($rootScope, $q) {
+    beforeEach(inject(function ($rootScope, $timeout, $q) {
         scope = $rootScope.$new();
+        timeout = $timeout;
         serviceDeferred = $q.defer();
 
         loginService.login = jasmine.createSpy().and.returnValue(serviceDeferred.promise);
 
-        controller = new loginController(state, loginService);
+        controller = new loginController(state, timeout, loginService);
     }));
 
     it('init', function () {

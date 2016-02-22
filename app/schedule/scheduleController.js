@@ -31,6 +31,7 @@ function scheduleController(userContext, scheduleService) {
     };
     vm.supportHero = null;
     vm.days = [];
+    vm.personalSchedule = [];
     vm.today = moment().hour(0).minute(0).seconds(0).milliseconds(0);
 
     init();
@@ -91,10 +92,13 @@ function scheduleController(userContext, scheduleService) {
         })
     }
 
+
     /**
      * getSchedule
      * based on current month. calculate startDate and endDate
      * to fit a 42 box calendar
+     *
+     * get currentUsers schedule. from current date to end of year
      */
     function getSchedule() {
         var currentMonthStart = vm.today.clone().startOf('month');
@@ -106,7 +110,15 @@ function scheduleController(userContext, scheduleService) {
 
         scheduleService.getSchedule(startOfCalendar.toISOString(), endOfCalendar.toISOString()).then(function(schedule) {
             vm.days = schedule.data;
-        })
+        });
+
+        scheduleService.getUserSchedule(vm.userContext.userId, vm.today.toISOString(), moment().endOf('year').toISOString()).then(function(schedule) {
+            schedule.data.map(function(value, index) {
+                return value['moment'] = moment(value.date.date);
+            });
+
+            vm.personalSchedule = schedule.data
+        });
     }
 
 }

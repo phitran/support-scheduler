@@ -6,8 +6,8 @@ Small exercise built on AngularJS and Hapijs. A web client that shows support us
 1. Display today’s Support Hero
 2. Display a single user’s schedule showing the days they are assigned to Support Hero
 3. Display the full schedule for all users in the current month
-4. Users should be able to mark one of their days on duty as undoable
-5. Users should be able to swap duty with another user’s specific day
+4. Users are able to mark one of their days on duty as undoable. This will randomly select a schedule from the following month and swap
+5. Users are able to swap duty with another user in the same month.
 
 ## Getting started
 #### Node ^4.2 and NPM
@@ -94,7 +94,9 @@ Running with PhantomJS isn't required, but recommended for speed in development 
 * Make username field unique on Mongodb
 * salt/hash passwords on Mongodb. add Server decoder
 * Server unit tests
-* Create test fixtures instead of inline
+* Create test fixtures instead of inline,
+* Split out user's schedule from calendar view
+* Server API call validation
 
 ## API
 

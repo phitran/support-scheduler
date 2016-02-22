@@ -1,52 +1,72 @@
-<section>
-    <div class="header tc">
-        <div>
-            {{ scheduleCtrl.today.format("MMMM, YYYY") }}
+<div class="df fd-row">
+    <section class="personal-schedule">
+        <div class="header tc">
+            <div>
+                Personal
+            </div>
+            <div class="subheader">
+                <span>Schedule</span>
+            </div>
         </div>
-        <div class="subheader">
-            <span>Todays Support Hero:</span>
-            <span>{{ scheduleCtrl.supportHero }}</span>
+
+
+        <ul class="personal-schedule-list">
+            <li ng-repeat="day in scheduleCtrl.personalSchedule">
+                {{day.moment.format("MMMM D, YYYY")}}
+            </p>
+        </ul>
+    </section>
+
+    <section>
+        <div class="header tc">
+            <div>
+                {{ scheduleCtrl.today.format("MMMM, YYYY") }}
+            </div>
+            <div class="subheader">
+                <span>Todays Support Hero:</span>
+                <span>{{ scheduleCtrl.supportHero }}</span>
+            </div>
         </div>
-    </div>
 
-    <div class="calendar df fw-wrap">
-        <div class="calendar-label df fd-column jc-center ai-center">Sunday</div>
-        <div class="calendar-label df fd-column jc-center ai-center">Monday</div>
-        <div class="calendar-label df fd-column jc-center ai-center">Tuesday</div>
-        <div class="calendar-label df fd-column jc-center ai-center">Wednesday</div>
-        <div class="calendar-label df fd-column jc-center ai-center">Thursday</div>
-        <div class="calendar-label df fd-column jc-center ai-center">Friday</div>
-        <div class="calendar-label df fd-column jc-center ai-center">Saturday</div>
+        <div class="calendar df fw-wrap">
+            <div class="calendar-label df fd-column jc-center ai-center">Sunday</div>
+            <div class="calendar-label df fd-column jc-center ai-center">Monday</div>
+            <div class="calendar-label df fd-column jc-center ai-center">Tuesday</div>
+            <div class="calendar-label df fd-column jc-center ai-center">Wednesday</div>
+            <div class="calendar-label df fd-column jc-center ai-center">Thursday</div>
+            <div class="calendar-label df fd-column jc-center ai-center">Friday</div>
+            <div class="calendar-label df fd-column jc-center ai-center">Saturday</div>
 
-        <div class="calendar-slot df fd-column jc-flex-start"
-             ng-repeat="currentDay in scheduleCtrl.days track by $index"
-             ng-class="{'isSupportHero': scheduleCtrl.isSupportHero(currentDay), 'isToday': scheduleCtrl.isToday(currentDay), 'notCurrentMonth': !scheduleCtrl.isCurrentMonth(currentDay) }">
-            <section class="tr">{{ currentDay.date.day }}</section>
+            <div class="calendar-slot df fd-column jc-flex-start"
+                 ng-repeat="currentDay in scheduleCtrl.days track by $index"
+                 ng-class="{'isSupportHero': scheduleCtrl.isSupportHero(currentDay), 'isToday': scheduleCtrl.isToday(currentDay), 'notCurrentMonth': !scheduleCtrl.isCurrentMonth(currentDay) }">
+                <section class="tr">{{ currentDay.date.day }}</section>
 
-            <section class="df fd-column jc-space-around ai-center ht-full">
-                <p ng-show="scheduleCtrl.isSupportHero(currentDay)">Your Support Day</p>
-                <p>{{ currentDay.user[0].name }}</p>
-                <p>{{ currentDay.date.description}}</p>
+                <section class="df fd-column jc-space-around ai-center ht-full">
+                    <p ng-show="scheduleCtrl.isSupportHero(currentDay)">Your Support Day</p>
+                    <p>{{ currentDay.user[0].name }}</p>
+                    <p>{{ currentDay.date.description}}</p>
 
-                <div class="df jc-space-around wd-full">
-                    <button ng-click="scheduleCtrl.swapSchedules(currentDay)"
-                            ng-show="scheduleCtrl.isSupportHero(currentDay) && !scheduleCtrl.isSwapping && !scheduleCtrl.isThePast(currentDay) && scheduleCtrl.isCurrentMonth(currentDay)">
-                        Swap
-                    </button>
-                    <button ng-click="scheduleCtrl.resetSwapContext(currentDay)"
-                            ng-show="scheduleCtrl.isSupportHero(currentDay) && scheduleCtrl.isSwapping && scheduleCtrl.swapContext.origin._id === currentDay._id">
-                        Cancel
-                    </button>
-                    <button ng-click="scheduleCtrl.confirmSwapSchedule(currentDay)"
-                            ng-show="!scheduleCtrl.isSupportHero(currentDay) && scheduleCtrl.isSwapping && scheduleCtrl.isWorkday(currentDay) && !scheduleCtrl.isThePast(currentDay) && scheduleCtrl.isCurrentMonth(currentDay)">
-                        Confirm
-                    </button>
-                    <button ng-click="scheduleCtrl.markUndoable(currentDay)"
-                            ng-show="scheduleCtrl.isSupportHero(currentDay) && !scheduleCtrl.isSwapping && !scheduleCtrl.isThePast(currentDay) && scheduleCtrl.isCurrentMonth(currentDay)">
-                        Undoable
-                    </button>
-                </div>
-            </section>
+                    <div class="df jc-space-around wd-full">
+                        <button ng-click="scheduleCtrl.swapSchedules(currentDay)"
+                                ng-show="scheduleCtrl.isSupportHero(currentDay) && !scheduleCtrl.isSwapping && !scheduleCtrl.isThePast(currentDay) && scheduleCtrl.isCurrentMonth(currentDay)">
+                            Swap
+                        </button>
+                        <button ng-click="scheduleCtrl.resetSwapContext(currentDay)"
+                                ng-show="scheduleCtrl.isSupportHero(currentDay) && scheduleCtrl.isSwapping && scheduleCtrl.swapContext.origin._id === currentDay._id">
+                            Cancel
+                        </button>
+                        <button ng-click="scheduleCtrl.confirmSwapSchedule(currentDay)"
+                                ng-show="!scheduleCtrl.isSupportHero(currentDay) && scheduleCtrl.isSwapping && scheduleCtrl.isWorkday(currentDay) && !scheduleCtrl.isThePast(currentDay) && scheduleCtrl.isCurrentMonth(currentDay)">
+                            Confirm
+                        </button>
+                        <button ng-click="scheduleCtrl.markUndoable(currentDay)"
+                                ng-show="scheduleCtrl.isSupportHero(currentDay) && !scheduleCtrl.isSwapping && !scheduleCtrl.isThePast(currentDay) && scheduleCtrl.isCurrentMonth(currentDay)">
+                            Undoable
+                        </button>
+                    </div>
+                </section>
+            </div>
         </div>
-    </div>
-</section>
+    </section>
+</div>
