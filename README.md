@@ -1,6 +1,8 @@
 Support Schedule
 =====
 
+[![Build Status](https://travis-ci.org/phitran/support-scheduler.svg?branch=master)](https://travis-ci.org/phitran/support-scheduler)
+
 Small exercise built on AngularJS and Hapijs. A web client that shows support user's schedules with a Node api backend.
 
 1. Display today’s Support Hero
