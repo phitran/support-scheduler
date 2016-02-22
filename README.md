@@ -16,7 +16,7 @@ Visit http://nodejs.org to install both.
 #### Project
 Get the project source and install dependencies: ```$ git clone https://github.com/phitran/support-scheduler.git [dest dir]```
 
-#### MongoDB
+#### MongoDB 3.2
 Visit https://www.mongodb.org/downloads#production to download and install. Other options are using HomeBrew. ```shell $ brew install mongodb```
 
 Once installed, mongodb can be started with this command (more help here: https://docs.mongodb.org/manual/tutorial/install-mongodb-on-os-x/):
@@ -95,6 +95,7 @@ Running with PhantomJS isn't required, but recommended for speed in development 
 * salt/hash passwords on Mongodb. add Server decoder
 * Server unit tests
 * Create test fixtures instead of inline
+* Ability to cycle through months
 
 ## API
 
