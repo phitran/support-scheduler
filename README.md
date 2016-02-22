@@ -32,11 +32,25 @@ such as merging to a single file, expansion and compression, cleaning, etc. Ther
 $ npm install --g gulp
 ```
 
-Populate MongoDB (make sure your MongoDB is running!):
+Populate MongoDB with users and schedules (make sure your MongoDB is running!):
 
 ```shell
 gulp init
 ```
+
+The app requires you to login, you may login to any one of these users with the password ```test```: 
+* sherry
+* boris
+* vicente
+* matte
+* jack
+* kevin
+* zoe
+* jay
+* eadon
+* franky
+* luis
+* james
 
 Download and initialize the dependencies from npm:
 
@@ -131,16 +145,16 @@ Response: [<Schedule Object>, ...]
 Required payload:
 ```json
 {
-    originSchedule: <Schedule Object>
-    targetSchedule: <Schedule Object>
+    "originSchedule": <Schedule Object>
+    "targetSchedule": <Schedule Object>
 }
 ```
 
 Response:
 ```json
 {
-     originSchedule: <Schedule Object>
-     targetSchedule: <Schedule Object>
+     "originSchedule": <Schedule Object>
+     "targetSchedule": <Schedule Object>
 }
 ```
 
@@ -150,14 +164,14 @@ Response:
 Required payload:
 ```json
 {
-    schedule: <Schedule Object>
+    "schedule": <Schedule Object>
 }
 ```
 
 Response:
 ```json
 {
-     originalSchedule: <Schedule Object>
-     newSchedule: <Schedule Object>
+     "originalSchedule": <Schedule Object>
+     "newSchedule": <Schedule Object>
 }
 ```
