@@ -7,11 +7,11 @@ angular
     .module('SupportScheduler')
     .controller('scheduleController', scheduleController);
 
-scheduleController.$inject = ['$state', 'userContext', 'scheduleService'];
-function scheduleController($state, userContext, scheduleService) {
+scheduleController.$inject = ['userContext', 'scheduleService'];
+function scheduleController(userContext, scheduleService) {
     const vm = this;
 
-    /* public method */
+    /* public methods */
     vm.isWorkday = isWorkday;
     vm.isSupportHero = isSupportHero;
     vm.isToday = isToday;
@@ -29,6 +29,7 @@ function scheduleController($state, userContext, scheduleService) {
         origin: null,
         target: null
     };
+    vm.supportHero = null;
     vm.days = [];
     vm.today = moment().hour(0).minute(0).seconds(0).milliseconds(0);
 
@@ -37,7 +38,6 @@ function scheduleController($state, userContext, scheduleService) {
     function init() {
         getSchedule();
     }
-
 
     function isWorkday(currentDay) {
         return !(currentDay.date.isHoliday || currentDay.date.isWeekend);
@@ -48,7 +48,12 @@ function scheduleController($state, userContext, scheduleService) {
     }
 
     function isToday(currentDay) {
-        return moment(currentDay.date.date).hour(0).minute(0).seconds(0).milliseconds(0).isSame(vm.today);
+        const isToday = moment(currentDay.date.date).hour(0).minute(0).seconds(0).milliseconds(0).isSame(vm.today);
+
+        if (isToday) {
+            vm.supportHero = _get(currentDay, 'user[0].name') || 'None';
+            return isToday;
+        }
     }
 
     function isThePast(currentDay) {
@@ -56,7 +61,6 @@ function scheduleController($state, userContext, scheduleService) {
     }
 
     function isCurrentMonth(currentDay) {
-        console.log( currentDay.date.month, vm.today.get('month') );
         return currentDay.date.month === parseInt(vm.today.format('M'));
     }
 
@@ -66,8 +70,8 @@ function scheduleController($state, userContext, scheduleService) {
      * to fit a 42 box calendar
      */
     function getSchedule() {
-        const currentMonthStart = moment().startOf('month');
-        const currentMonthEnd = moment().endOf('month');
+        const currentMonthStart = vm.today.clone().startOf('month');
+        const currentMonthEnd = vm.today.clone().endOf('month');
         const numberOfDaysInMonth = parseInt(currentMonthEnd.format('D'));
         const remainingDaysOfCalendar = 42 - (currentMonthStart.day() + numberOfDaysInMonth);
         const startOfCalendar = currentMonthStart.clone().subtract(currentMonthStart.day(), 'd').hour(0).minute(0).seconds(0).milliseconds(0);

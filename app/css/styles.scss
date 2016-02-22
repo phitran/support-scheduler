@@ -1,37 +1,74 @@
 @import "type";
+@import "variables";
+
+.db { display: block; }
+.df { display: flex; }
+
+.jc-center { justify-content: center }
+.jc-flex-end { justify-content: flex-end }
+.jc-flex-start { justify-content: flex-start }
+.jc-space-between { justify-content: space-between; }
+.jc-space-around { justify-content: space-around; }
+
+.ai-flex-start { align-items: flex-start; }
+.ai-flex-end { align-items: flex-end; }
+.ai-center { align-items: center; }
+.ai-baseline { align-items: baseline; }
+.ai-stretch { align-items: stretch; }
+
+.fd-column { flex-direction: column; }
+.fd-column-r { flex-direction: column-reverse; }
+.fd-row { flex-direction: row; }
+.fd-row-r { flex-direction: row-reverse; }
+
+.fw-wrap { flex-wrap: wrap; }
+.fw-nowrap { flex-wrap: nowrap; }
+
+.ht-full {
+  height: 100%;
+}
+
+.wd-full {
+  width: 100%;
+}
+
+.header {
+  font-size: 40px;
+  font-weight: bold;
+}
+
+.subheader {
+  font-size: 25px;
+  font-weight: normal;
+}
 
 .calendar {
-  display: flex;
-  flex-wrap: wrap;
   min-width: 450px;
 }
 
-.calendar div {
-  display: flex;
-  flex-grow: 1;
-  border: 1px solid red;
+.calendar-label {
+  font-weight: bold;
+  height: 25px;
+}
+
+.calendar-slot {
   height: 100px;
+}
+
+.calendar-label, .calendar-slot {
+  flex-grow: 1;
+  border: 1px solid $grey;
   width: calc(100% * (1 / 7) - 10px)
 }
 
-.calendar-label {
-  justify-content: center;
-  align-items: center;
-}
-
-.day {
-  justify-content: flex-end;
-}
-
 .isSupportHero {
-  background-color: lightgray;
+  background-color: $grey;
 }
 
 .isToday {
-  background-color: mediumpurple;
+  background-color: $purple;
 }
 
 .notCurrentMonth {
-  opacity: 0.4;
-  background: lightgrey;
+  color: $grey;
 }
