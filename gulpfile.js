@@ -5,6 +5,9 @@ const autoprefixer = require('gulp-autoprefixer');
 const browserify = require('gulp-browserify');
 const brfs = require('brfs');
 const rename = require('gulp-rename');
+const uglify = require( 'gulp-uglify' );
+const cssnano = require( 'gulp-cssnano' );
+const gulpif = require( 'gulp-if' );
 const clean = require('gulp-clean');
 
 const isProduction = gulp.env.production;
@@ -26,6 +29,7 @@ gulp.task('js', ['clean'], function () {
             debug: isProduction ? false : true
         }))
         .pipe(rename('support-scheduler.js'))
+        .pipe( gulpif( isProduction, uglify( { mangle: true } ) ) )
         .pipe(gulp.dest('./dist/js'))
 });
 
@@ -36,6 +40,7 @@ gulp.task('css', ['clean'], function () {
             browsers: ['last 2 versions'],
             cascade: false
         }))
+        .pipe( gulpif( isProduction, cssnano() ) )
         .pipe(gulp.dest('./dist/css'));
 });
 
