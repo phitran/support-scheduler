@@ -5,9 +5,8 @@ Support Schedule
 
 Small exercise built on AngularJS and Hapijs. A web client that shows support user's schedules with a Node api backend.
 
-1. Display today’s Support Hero
-2. Display a single user’s schedule showing the days they are assigned to Support Hero
-3. Display the full schedule for all users in the current month
+1. Display today’s Support person
+2. Display a single user’s schedule for the year and schedule for the current month
 4. Users are able to mark one of their days on duty as undoable. This will randomly select a schedule from the following month and swap
 5. Users are able to swap duty with another user in the same month.
 
