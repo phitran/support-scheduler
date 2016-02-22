@@ -1,7 +1,7 @@
 'use strict';
 
-const moment = require('moment');
-const _get = require('lodash/get');
+var moment = require('moment');
+var _get = require('lodash/get');
 
 angular
     .module('SupportScheduler')
@@ -9,7 +9,7 @@ angular
 
 scheduleController.$inject = ['userContext', 'scheduleService'];
 function scheduleController(userContext, scheduleService) {
-    const vm = this;
+    var vm = this;
 
     /* public methods */
     vm.isWorkday = isWorkday;
@@ -48,12 +48,14 @@ function scheduleController(userContext, scheduleService) {
     }
 
     function isToday(currentDay) {
-        const isToday = moment(currentDay.date.date).hour(0).minute(0).seconds(0).milliseconds(0).isSame(vm.today);
+        var isToday = moment(currentDay.date.date).hour(0).minute(0).seconds(0).milliseconds(0).isSame(vm.today);
 
         if (isToday) {
             vm.supportHero = _get(currentDay, 'user[0].name') || 'None';
             return isToday;
         }
+
+        return false;
     }
 
     function isThePast(currentDay) {
@@ -64,24 +66,6 @@ function scheduleController(userContext, scheduleService) {
         return currentDay.date.month === parseInt(vm.today.format('M'));
     }
 
-    /**
-     * getSchedule
-     * based on current month. calculate startDate and endDate
-     * to fit a 42 box calendar
-     */
-    function getSchedule() {
-        const currentMonthStart = vm.today.clone().startOf('month');
-        const currentMonthEnd = vm.today.clone().endOf('month');
-        const numberOfDaysInMonth = parseInt(currentMonthEnd.format('D'));
-        const remainingDaysOfCalendar = 42 - (currentMonthStart.day() + numberOfDaysInMonth);
-        const startOfCalendar = currentMonthStart.clone().subtract(currentMonthStart.day(), 'd').hour(0).minute(0).seconds(0).milliseconds(0);
-        const endOfCalendar = currentMonthEnd.clone().add(remainingDaysOfCalendar, 'd').hour(0).minute(0).seconds(0).milliseconds(0);
-
-        scheduleService.getSchedule(startOfCalendar.toISOString(), endOfCalendar.toISOString()).then(schedule => {
-            vm.days = schedule.data;
-        })
-    }
-
     function swapSchedules(schedule) {
         vm.isSwapping = true;
         vm.swapContext.origin = schedule;
@@ -89,11 +73,10 @@ function scheduleController(userContext, scheduleService) {
 
     function confirmSwapSchedule(schedule) {
         vm.swapContext.target = schedule;
-        scheduleService.swapSchedule(vm.swapContext.origin,vm.swapContext.target).then(response => {
+        scheduleService.swapSchedule(vm.swapContext.origin,vm.swapContext.target).then(function(response) {
             getSchedule();
             resetSwapContext();
         });
-
     }
 
     function resetSwapContext() {
@@ -103,8 +86,26 @@ function scheduleController(userContext, scheduleService) {
     }
 
     function markUndoable(schedule) {
-        scheduleService.undoableSchedule(schedule).then(response => {
+        scheduleService.undoableSchedule(schedule).then(function(response) {
             getSchedule();
+        })
+    }
+
+    /**
+     * getSchedule
+     * based on current month. calculate startDate and endDate
+     * to fit a 42 box calendar
+     */
+    function getSchedule() {
+        var currentMonthStart = vm.today.clone().startOf('month');
+        var currentMonthEnd = vm.today.clone().endOf('month');
+        var numberOfDaysInMonth = parseInt(currentMonthEnd.format('D'));
+        var remainingDaysOfCalendar = 42 - (currentMonthStart.day() + numberOfDaysInMonth);
+        var startOfCalendar = currentMonthStart.clone().subtract(currentMonthStart.day(), 'd').hour(0).minute(0).seconds(0).milliseconds(0);
+        var endOfCalendar = currentMonthEnd.clone().add(remainingDaysOfCalendar, 'd').hour(0).minute(0).seconds(0).milliseconds(0);
+
+        scheduleService.getSchedule(startOfCalendar.toISOString(), endOfCalendar.toISOString()).then(function(schedule) {
+            vm.days = schedule.data;
         })
     }
 

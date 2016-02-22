@@ -1,9 +1,7 @@
 <section>
     <div class="header tc">
         <div>
-            <span ng-click="scheduleCtrl.previousMonth()"><</span>
             {{ scheduleCtrl.today.format("MMMM, YYYY") }}
-            <span ng-click="scheduleCtrl.nextMonth()">></span>
         </div>
         <div class="subheader">
             <span>Todays Support Hero:</span>
@@ -32,7 +30,7 @@
 
                 <div class="df jc-space-around wd-full">
                     <button ng-click="scheduleCtrl.swapSchedules(currentDay)"
-                            ng-show="scheduleCtrl.isSupportHero(currentDay) && !scheduleCtrl.isSwapping && !scheduleCtrl.isThePast(currentDay)">
+                            ng-show="scheduleCtrl.isSupportHero(currentDay) && !scheduleCtrl.isSwapping && !scheduleCtrl.isThePast(currentDay) && scheduleCtrl.isCurrentMonth(currentDay)">
                         Swap
                     </button>
                     <button ng-click="scheduleCtrl.resetSwapContext(currentDay)"
@@ -44,7 +42,7 @@
                         Confirm
                     </button>
                     <button ng-click="scheduleCtrl.markUndoable(currentDay)"
-                            ng-show="scheduleCtrl.isSupportHero(currentDay) && !scheduleCtrl.isSwapping && !scheduleCtrl.isThePast(currentDay)">
+                            ng-show="scheduleCtrl.isSupportHero(currentDay) && !scheduleCtrl.isSwapping && !scheduleCtrl.isThePast(currentDay) && scheduleCtrl.isCurrentMonth(currentDay)">
                         Undoable
                     </button>
                 </div>

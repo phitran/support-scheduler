@@ -30,11 +30,11 @@ function config($locationProvider, $stateProvider, $urlRouterProvider) {
             controllerAs: 'scheduleCtrl',
             params: {userContext: null},
             resolve: {
-                userContext: ['$stateParams', ($stateParams) => {
+                userContext: ['$stateParams', function($stateParams) {
                     return $stateParams.userContext;
                 }]
             },
-            onEnter: ['$state', 'userContext', ($state, userContext) => {
+            onEnter: ['$state', 'userContext', function($state, userContext) {
                 if (!userContext) {
                     $state.go('login');
                 }

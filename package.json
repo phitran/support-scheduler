@@ -3,6 +3,9 @@
   "version": "0.1.0",
   "description": "",
   "main": "server/index.js",
+  "scripts": {
+    "test": "./node_modules/karma/bin/karma start karma.conf.js"
+  },
   "dependencies": {
     "boom": "^3.1.2",
     "confidence": "^1.4.2",
@@ -14,21 +17,29 @@
     "lodash": "^4.5.0",
     "moment": "^2.11.2",
     "mongodb": "^2.1.7",
+    "ui-router": "^0.2.15",
     "vision": "^4.0.1"
   },
   "devDependencies": {
+    "angular": "^1.5.0",
+    "angular-mocks": "^1.5.0",
     "babelify": "^7.2.0",
     "brfs": "^1.4.3",
+    "browserify": "^13.0.0",
     "gulp": "^3.9.1",
     "gulp-autoprefixer": "^3.1.0",
     "gulp-browserify": "^0.5.1",
     "gulp-clean": "^0.3.1",
     "gulp-rename": "^1.2.2",
     "gulp-sass": "^2.2.0",
-    "gulp-shell": "^0.5.2"
-  },
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "gulp-shell": "^0.5.2",
+    "jasmine-expect": "^1.22.3",
+    "jasmine-promise-matchers": "^2.0.2",
+    "karma": "^0.13.19",
+    "karma-browserify": "^5.0.1",
+    "karma-jasmine": "^0.3.6",
+    "karma-phantomjs-launcher": "^1.0.0",
+    "karma-spec-reporter": "0.0.23"
   },
   "author": "Phi Tran",
   "license": "ISC"
