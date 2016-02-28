@@ -140,7 +140,7 @@ Required query params:
 * startDate
 * endDate
 
-Response: [<Schedule Object>, ...]
+Response: ```[<Schedule Object>, ...]```
 
 #### GET User's Schedule
 ```GET /services/schedule/{userId}```
@@ -149,7 +149,7 @@ Required query params:
 * startDate
 * endDate
 
-Response: [<Schedule Object>, ...]
+Response: ```[<Schedule Object>, ...]```
 
 #### POST Schedule Swap
 ```POST /services/schedule/swap```
