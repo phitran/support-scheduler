@@ -95,10 +95,9 @@ Running with PhantomJS isn't required, but recommended for speed in development 
 * Make username field unique on Mongodb
 * salt/hash passwords on Mongodb. add Server decoder
 * Server unit tests
-* Create test fixtures instead of inline,
-* Split out user's schedule from calendar view
-* Server API call validation
 * Create test fixtures instead of inline
+* Split out user's schedule from calendar view
+* add validation for api requests
 * Ability to cycle through months
 * API validation on request
 
