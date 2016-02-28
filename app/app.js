@@ -3,7 +3,7 @@
 var fs = require('fs');
 
 // Dependencies
-require('ui-router');
+require('angular-ui-router');
 
 var appModule = angular.module('SupportScheduler', ['ui.router']);
 

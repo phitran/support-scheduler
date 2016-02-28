@@ -33,30 +33,16 @@ such as merging to a single file, expansion and compression, cleaning, etc. Ther
 $ npm install --g gulp
 ```
 
+Download and initialize the dependencies from npm (note: through npm's postinstall hook, ```npm gulp --production``` will be ran automatically):
+
+```shell
+$ npm install
+```
+
 Populate MongoDB with users and schedules (make sure your MongoDB is running!):
 
 ```shell
 gulp init
-```
-
-The app requires you to login, you may login to any one of these users with the password ```test```: 
-* sherry
-* boris
-* vicente
-* matte
-* jack
-* kevin
-* zoe
-* jay
-* eadon
-* franky
-* luis
-* james
-
-Download and initialize the dependencies from npm:
-
-```shell
-$ npm install
 ```
 
 Gulp is configured to have several build modes to help with various development tasks. Running Gulp by itself, will build the application in development mode. Javascript and CSS files will not be minimized.
@@ -78,6 +64,20 @@ Run the node server to see the site locally(localhost:8080):
 ```shell
 $ npm start
 ```
+
+The app requires you to login, you may login to any one of these users with the password ```test```: 
+* sherry
+* boris
+* vicente
+* matte
+* jack
+* kevin
+* zoe
+* jay
+* eadon
+* franky
+* luis
+* james
 
 ## Running Tests
 

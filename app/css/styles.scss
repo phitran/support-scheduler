@@ -81,9 +81,15 @@
 .personal-schedule-list {
   border: 1px solid $grey;
   margin: 0;
-  padding: 0;
+  padding: 0 5px;
+  list-style: none;
 }
 
 .personal-schedule-list li {
   margin: 10px 0;
+}
+
+/* move to spacing scss */
+.mas {
+  margin: 10px;
 }
